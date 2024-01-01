@@ -6,10 +6,10 @@ from typing import Any, Mapping
 
 from homeassistant.components.humidifier import HumidifierEntity
 from homeassistant.components.humidifier.const import (
+    HumidifierEntityFeature,
     MODE_AUTO,
     MODE_NORMAL,
     MODE_SLEEP,
-    SUPPORT_MODES,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
@@ -120,9 +120,9 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
         return modes
 
     @property
-    def supported_features(self):
+    def supported_features(self) -> HumidifierEntityFeature:
         """Flag supported features."""
-        return SUPPORT_MODES
+        return HumidifierEntityFeature.MODES
 
     @property
     def target_humidity(self) -> int:
