@@ -1,1 +1,1 @@
-pyvesync==2.1.10
+pyvesync @ git+https://github.com/webdjoe/pyvesync@main
