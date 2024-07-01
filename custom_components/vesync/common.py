@@ -49,7 +49,7 @@ async def async_process_devices(hass, manager):
         ["cid", "uuid", "mac_id"],
     )
 
-    _LOGGER.warning(
+    _LOGGER.debug(
         "Found the following devices: %s",
         redacted,
     )
