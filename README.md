@@ -3,8 +3,8 @@
 > 
 > This a fork of the existing archived project created by vlebourl. Please contribute here.
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
-[![GitHub release](https://img.shields.io/github/v/release/vlebourl/custom_vesync.svg)](https://GitHub.com/vlebourl/custom_vesync/releases/)
+<!---[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)-->
+[![GitHub release](https://img.shields.io/github/v/release/micahqcade/custom_vesync.svg)](https://GitHub.com/micahqcade/custom_vesync/releases/)
 
 # VeSync custom component for Home Assistant
 
@@ -34,6 +34,16 @@ You can make sure the custom integration is in use by looking for the following 
 ## Logging
 
 ### Enable debug logging
+
+#### Via Home Assistant UI
+
+Navigate to the Vesync integration and click on `Enable debug logging`. Restart Home Assistant. Give it a few minutes and navigate back to the Vesync integration and disable debug logging. A local log file will get downloaded to your device.
+
+![image](https://github.com/RobertD502/custom_vesync/assets/52541649/c556458c-a0a6-4432-acec-1200fc561d79)
+
+
+
+#### YAML Method
 
 The [logger](https://www.home-assistant.io/integrations/logger/) integration lets you define the level of logging activities in Home Assistant. Turning on debug mode will show more information about unsupported devices in your logbook.
 
