@@ -13,20 +13,26 @@ This integration is heavily based on [VeSync_bpo](https://github.com/borpin/vesy
 
 ## Installation
 
-You can install this integration via [HACS](#hacs) or [manually](#manual).
 This integration will override the core VeSync integration.
 
-### HACS
+Easiest install is via [HACS](https://hacs.xyz/):
 
-This integration can be installed by adding this repository to HACS __AS A CUSTOM REPOSITORY__, then searching for `Custom VeSync`, and choosing install. Reboot Home Assistant and configure the 'VeSync' integration via the integrations page or press the blue button below.
+1. Click the button below to add this repository to HACS.
 
-[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=vesync)
+   [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=micahqcade&repository=custom_vesync&category=integration)
+3. Install this integration via HACS.
+4. Restart Home Assistant.
+5. Configure the 'VeSync' integration via the integrations page or press the blue button below.
 
-### Manual
+<details>
+  <summary>Alternative: Manual Install</summary>
 
-Copy the `custom_components/vesync` to your `custom_components` folder. Reboot Home Assistant and configure the 'VeSync' integration via the integrations page or press the blue button below.
+1. Copy the `custom_components/vesync` to your `custom_components` folder. Reboot Home Assistant and configure the 'VeSync' integration via the integrations page or press the blue button below.
+</details>
 
-[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=vesync)
+6. Click the button below to setup the integration.
+
+   [![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=vesync)
 
 You can make sure the custom integration is in use by looking for the following icon in the Settings > Devices & Services page:
 ![image](https://user-images.githubusercontent.com/5701372/234820776-11a80f79-5b4d-4dbe-8b63-42579e4a5631.png)
