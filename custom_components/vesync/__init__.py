@@ -6,8 +6,8 @@ import logging
 from pyvesync.vesync import VeSync
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, Platform
-from homeassistant.core import HomeAssistant, ServiceCall
+from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, EVENT_LOGGING_CHANGED, Platform
+from homeassistant.core import Event, HomeAssistant, ServiceCall
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -118,6 +118,18 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
     hass.services.async_register(
         DOMAIN, SERVICE_UPDATE_DEVS, async_new_device_discovery
+    )
+
+    async def _async_logging_changed(event: Event | None = None) -> None:
+        """Handle logging change."""
+        # pyvesync sets its own loglevel internally.
+        manager.debug = _LOGGER.isEnabledFor(logging.DEBUG)
+
+    # Set up initial logging level.
+    await _async_logging_changed()
+
+    config_entry.async_on_unload(
+        hass.bus.async_listen(EVENT_LOGGING_CHANGED, _async_logging_changed)
     )
 
     return True
