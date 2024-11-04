@@ -8,6 +8,8 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from pyvesync.vesyncfan import VeSyncSuperior6000S
+
 from .common import VeSyncBaseEntity, VeSyncDevice
 from .const import DEV_TYPE_TO_HA, DOMAIN, VS_DISCOVERY, VS_SWITCHES
 
@@ -205,6 +207,8 @@ class VeSyncHumidifierAutomaticStopHA(VeSyncSwitchEntity):
     @property
     def is_on(self):
         """Return True if automatic stop is on."""
+        if type(self.device) is VeSyncSuperior6000S:
+            return self.device.mode == "auto"
         return self.device.config["automatic_stop"]
 
     def turn_on(self, **kwargs):
@@ -236,6 +240,8 @@ class VeSyncHumidifierAutoOnHA(VeSyncSwitchEntity):
     @property
     def is_on(self):
         """Return True if in auto mode."""
+        if type(self.device) is VeSyncSuperior6000S:
+            return self.device.mode == "auto"
         return self.device.details["mode"] == "auto"
 
     def turn_on(self, **kwargs):
