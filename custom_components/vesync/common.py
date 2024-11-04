@@ -1,12 +1,11 @@
 """Common utilities for VeSync Component."""
 import logging
 
-from pyvesync.vesyncfan import model_features as fan_model_features
-from pyvesync.vesynckitchen import model_features as kitchen_model_features
-
 from homeassistant.components.diagnostics import async_redact_data
 from homeassistant.helpers.entity import Entity, ToggleEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from pyvesync.vesyncfan import model_features as fan_model_features
+from pyvesync.vesynckitchen import model_features as kitchen_model_features
 
 from .const import (
     DOMAIN,

@@ -1,11 +1,9 @@
 """Support for VeSync humidifiers."""
 from __future__ import annotations
 
-from collections.abc import Mapping
 import logging
-from typing import Any
-
-from pyvesync.vesyncfan import VeSyncHumid200300S, VeSyncSuperior6000S
+from collections.abc import Mapping
+from typing import Any, overload
 
 from homeassistant.components.humidifier import HumidifierEntity
 from homeassistant.components.humidifier.const import (
@@ -18,6 +16,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyvesync.vesyncfan import VeSyncHumid200300S, VeSyncSuperior6000S
 
 from .common import VeSyncDevice
 from .const import (
@@ -102,11 +101,13 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
     _attr_max_humidity = MAX_HUMIDITY
     _attr_min_humidity = MIN_HUMIDITY
 
+    @overload
     def __init__(self, humidifier: VeSyncHumid200300S, coordinator) -> None:
         """Initialize the VeSync humidifier device."""
         super().__init__(humidifier, coordinator)
         self.smarthumidifier = humidifier
 
+    @overload
     def __init__(self, humidifier: VeSyncSuperior6000S, coordinator) -> None:
         """Initialize the VeSync humidifier device."""
         super().__init__(humidifier, coordinator)
