@@ -113,6 +113,10 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
         super().__init__(humidifier, coordinator)
         self.smarthumidifier = humidifier
 
+    def __init__(self, humidifier, coordinator) -> None:
+        """Initialize the VeSync humidifier device."""
+        super().__init__(humidifier, coordinator)
+
     @property
     def available_modes(self) -> list[str]:
         """Return the available mist modes."""
