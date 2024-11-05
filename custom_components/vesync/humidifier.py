@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Mapping
-from typing import Any, overload
+from typing import Any
 
 from homeassistant.components.humidifier import HumidifierEntity
 from homeassistant.components.humidifier.const import (
@@ -101,21 +101,11 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
     _attr_max_humidity = MAX_HUMIDITY
     _attr_min_humidity = MIN_HUMIDITY
 
-    @overload
-    def __init__(self, humidifier: VeSyncHumid200300S, coordinator) -> None:
-        """Initialize the VeSync humidifier device."""
-        super().__init__(humidifier, coordinator)
-        self.smarthumidifier = humidifier
-
-    @overload
-    def __init__(self, humidifier: VeSyncSuperior6000S, coordinator) -> None:
-        """Initialize the VeSync humidifier device."""
-        super().__init__(humidifier, coordinator)
-        self.smarthumidifier = humidifier
-
     def __init__(self, humidifier, coordinator) -> None:
         """Initialize the VeSync humidifier device."""
         super().__init__(humidifier, coordinator)
+        if type(humidifier) in [VeSyncHumid200300S, VeSyncSuperior6000S]:
+            self.smarthumidifier = humidifier
 
     @property
     def available_modes(self) -> list[str]:
