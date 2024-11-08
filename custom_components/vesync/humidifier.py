@@ -106,6 +106,11 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
         super().__init__(humidifier, coordinator)
         if type(humidifier) in [VeSyncHumid200300S, VeSyncSuperior6000S]:
             self.smarthumidifier = humidifier
+        else:
+            _LOGGER.error("Found incompatible humidifier model")
+            raise Exception(
+                "This humidifier is not compatible with the current release of CustomVeSync"
+            )
 
     @property
     def available_modes(self) -> list[str]:
@@ -144,7 +149,7 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
     def is_on(self) -> bool:
         """Return True if humidifier is on."""
         if type(self.smarthumidifier) is VeSyncSuperior6000S:
-            return True if self.smarthumidifier.device_status == "on" else False
+            return self.smarthumidifier.device_status == "on"
         return self.smarthumidifier.enabled  # device_status is always on
 
     @property
