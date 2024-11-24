@@ -1,11 +1,9 @@
 """Support for VeSync humidifiers."""
 from __future__ import annotations
 
-from collections.abc import Mapping
 import logging
+from collections.abc import Mapping
 from typing import Any
-
-from pyvesync.vesyncfan import VeSyncHumid200300S
 
 from homeassistant.components.humidifier import HumidifierEntity
 from homeassistant.components.humidifier.const import (
@@ -18,6 +16,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyvesync.vesyncfan import VeSyncHumid200300S, VeSyncSuperior6000S
 
 from .common import VeSyncDevice
 from .const import (
@@ -102,10 +101,16 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
     _attr_max_humidity = MAX_HUMIDITY
     _attr_min_humidity = MIN_HUMIDITY
 
-    def __init__(self, humidifier: VeSyncHumid200300S, coordinator) -> None:
+    def __init__(self, humidifier, coordinator) -> None:
         """Initialize the VeSync humidifier device."""
         super().__init__(humidifier, coordinator)
-        self.smarthumidifier = humidifier
+        if type(humidifier) in [VeSyncHumid200300S, VeSyncSuperior6000S]:
+            self.smarthumidifier = humidifier
+        else:
+            _LOGGER.error("Found incompatible humidifier model")
+            raise Exception(
+                "This humidifier is not compatible with the current release of CustomVeSync"
+            )
 
     @property
     def available_modes(self) -> list[str]:
@@ -129,16 +134,22 @@ class VeSyncHumidifierHA(VeSyncDevice, HumidifierEntity):
     @property
     def target_humidity(self) -> int:
         """Return the humidity we try to reach."""
+        if type(self.smarthumidifier) is VeSyncSuperior6000S:
+            return self.smarthumidifier.details["target_humidity"]
         return self.smarthumidifier.config["auto_target_humidity"]
 
     @property
     def mode(self) -> str | None:
         """Get the current preset mode."""
+        if type(self.smarthumidifier) is VeSyncSuperior6000S:
+            return _get_ha_mode(self.smarthumidifier.mode)
         return _get_ha_mode(self.smarthumidifier.details["mode"])
 
     @property
     def is_on(self) -> bool:
         """Return True if humidifier is on."""
+        if type(self.smarthumidifier) is VeSyncSuperior6000S:
+            return self.smarthumidifier.device_status == "on"
         return self.smarthumidifier.enabled  # device_status is always on
 
     @property

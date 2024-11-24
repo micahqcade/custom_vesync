@@ -30,7 +30,12 @@ VS_MODE_TURBO = "turbo"
 VS_TO_HA_ATTRIBUTES = {"humidity": "current_humidity"}
 
 VS_FAN_TYPES = ["VeSyncAirBypass", "VeSyncAir131", "VeSyncAirBaseV2"]
-VS_HUMIDIFIERS_TYPES = ["VeSyncHumid200300S", "VeSyncHumid200S", "VeSyncHumid1000S"]
+VS_HUMIDIFIERS_TYPES = [
+    "VeSyncHumid200300S",
+    "VeSyncHumid200S",
+    "VeSyncHumid1000S",
+    "VeSyncSuperior6000S",
+]
 VS_AIRFRYER_TYPES = ["VeSyncAirFryer158"]
 
 

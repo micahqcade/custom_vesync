@@ -1,9 +1,7 @@
 """VeSync integration."""
 
-from datetime import timedelta
 import logging
-
-from pyvesync.vesync import VeSync
+from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, Platform
@@ -11,6 +9,7 @@ from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from pyvesync.vesync import VeSync
 
 from .common import async_process_devices
 from .const import (
